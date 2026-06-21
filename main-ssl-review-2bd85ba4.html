@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>足球世界杯 · 知识库入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f4f6fa;
+            color: #1e1e2a;
+            line-height: 1.65;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 深色头图 */
+        .hero {
+            background: linear-gradient(145deg, #0a1a2f 0%, #11273f 70%, #1a334a 100%);
+            color: #e6edf5;
+            padding: 3.5rem 1.5rem 3rem;
+            text-align: center;
+            border-bottom: 4px solid #ffbe3c;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.6rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: 0.4rem auto 0.8rem;
+            font-size: 1.1rem;
+            color: #cbdae8;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: rgba(255, 190, 60, 0.18);
+            border: 1px solid #ffbe3c;
+            border-radius: 30px;
+            padding: 0.2rem 1.2rem;
+            font-size: 0.85rem;
+            color: #f0d89f;
+            margin-top: 0.2rem;
+        }
+
+        /* 主内容区：浅色正文 */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 3rem;
+            flex: 1;
+        }
+
+        /* 目录感布局 —— 卡片网格 */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            border-left: 5px solid #ffbe3c;
+            padding-left: 1rem;
+            margin: 2rem 0 1.2rem;
+            color: #0a1a2f;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.6rem;
+            margin-bottom: 2.4rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.6rem 1.4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.02);
+            border: 1px solid #e9edf4;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #0d2137;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .card h3::before {
+            content: "⚽";
+            font-size: 1.3rem;
+        }
+
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #2e3b4c;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.3rem;
+        }
+
+        .card ul li {
+            padding: 0.25rem 0;
+            border-bottom: 1px dashed #eef2f7;
+        }
+
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+
+        /* 说明区 + 提示区 组合 */
+        .info-blocks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin: 2rem 0 1.8rem;
+        }
+
+        .info-block {
+            flex: 1 1 240px;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 1.5rem 1.4rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border-left: 4px solid #ffbe3c;
+        }
+
+        .info-block h4 {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #11273f;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .info-block h4 span {
+            font-size: 1.2rem;
+        }
+
+        .info-block p {
+            font-size: 0.92rem;
+            color: #2e3b4c;
+        }
+
+        .info-block strong {
+            color: #1a334a;
+        }
+
+        /* 相关链接区 */
+        .related-area {
+            background: white;
+            border-radius: 16px;
+            padding: 1.8rem 1.8rem 2rem;
+            margin: 1.6rem 0 0.8rem;
+            border: 1px solid #e1e8f0;
+        }
+
+        .related-area h4 {
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #0d2137;
+            margin-bottom: 0.8rem;
+        }
+
+        .related-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .related-links li {
+            font-size: 0.95rem;
+        }
+
+        .related-links a {
+            color: #1a5a8c;
+            text-decoration: none;
+            border-bottom: 1px dotted #b0c8de;
+            font-weight: 500;
+            transition: color 0.15s, border-bottom 0.15s;
+        }
+
+        .related-links a:hover {
+            color: #ff8c1a;
+            border-bottom: 1px solid #ff8c1a;
+        }
+
+        /* 强调色链接（正文内） */
+        a.text-link {
+            color: #1a5a8c;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #b3cbe0;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        a.text-link:hover {
+            color: #e67a00;
+            border-bottom-color: #e67a00;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #dce3ec;
+            margin: 2rem 0 1.2rem;
+        }
+
+        .footnote {
+            font-size: 0.88rem;
+            color: #5b6a7d;
+            border-top: 1px solid #dce3ec;
+            padding-top: 1.4rem;
+            margin-top: 2.2rem;
+            text-align: center;
+        }
+
+        .footnote a {
+            color: #2b5f8c;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 2.5rem 1rem 2rem; }
+            .container { padding: 1.8rem 1rem; }
+            .card-grid { gap: 1.2rem; }
+            .info-blocks { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 深色头图 hero -->
+    <section class="hero">
+        <h1>⚽ 足球世界杯 · 知识库</h1>
+        <p>赛事体系 · 历史脉络 · 数据索引 · 稳定入口</p>
+        <div class="badge">信息目录 · 持续更新</div>
+    </section>
+
+    <!-- 主内容区 -->
+    <main class="container">
+
+        <!-- 卡片网格：目录感布局 -->
+        <div class="card-grid">
+            <div class="card">
+                <h3>赛事架构</h3>
+                <ul>
+                    <li>男子世界杯 · 1930 至今</li>
+                    <li>女子世界杯 · 1991 至今</li>
+                    <li>青年锦标赛 &amp; 五人制</li>
+                    <li>洲际资格赛体系</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>历届决赛</h3>
+                <ul>
+                    <li>2022 · 阿根廷 vs 法国</li>
+                    <li>2018 · 法国 vs 克罗地亚</li>
+                    <li>2014 · 德国 vs 阿根廷</li>
+                    <li>完整赛果表</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>纪录与数据</h3>
+                <ul>
+                    <li>射手榜 · 出场榜</li>
+                    <li>冠军国家统计</li>
+                    <li>最大比分胜利</li>
+                    <li>冷门与经典战役</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>东道主信息</h3>
+                <ul>
+                    <li>2026 · 美国 / 加拿大 / 墨西哥</li>
+                    <li>2030 百年计划</li>
+                    <li>历届主办城市</li>
+                    <li>场馆容量一览</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 说明区 + 提示区 两栏风格 -->
+        <div class="info-blocks">
+            <div class="info-block">
+                <h4><span>📘</span> 关于本页</h4>
+                <p>此页面作为<strong>知识库入口</strong>，聚合足球世界杯的基础结构、历史数据和参考链接。内容保持客观，不包含竞猜、博彩或诱导性表述。信息源来自公开赛事资料与官方档案。</p>
+            </div>
+            <div class="info-block">
+                <h4><span>💡</span> 使用提示</h4>
+                <p>点击下方<strong>「足球世界杯」</strong>链接可直达赛事主站。页面内各卡片仅为摘要，详细数据建议结合官方统计与权威媒体交叉验证。目录结构便于快速定位所需板块。</p>
+            </div>
+        </div>
+
+        <!-- 相关信息区 + 核心链接（自然嵌入） -->
+        <div class="related-area">
+            <h4>📎 相关信息</h4>
+            <ul class="related-links">
+                <li>🔗 官方信息门户：<a href="https://main-ssl-worldcup.com" class="text-link">足球世界杯</a> — 赛事新闻、赛程、积分榜与历史数据库</li>
+                <li>📄 世界杯历史档案 · 历届回顾</li>
+                <li>📊 当前预选赛阶段与抽签结果</li>
+                <li>🏆 冠军奖杯与荣誉榜</li>
+            </ul>
+            <p style="margin-top: 1.2rem; font-size: 0.92rem; color: #2e3b4c;">
+                若想获取最实时、最权威的赛事动态，建议将 <a href="https://main-ssl-worldcup.com" class="text-link">足球世界杯</a> 加入书签。此页面仅作为结构化导读，不替代主站功能。
+            </p>
+        </div>
+
+        <!-- FAQ 摘要（非完整问答，只做提示性条目） -->
+        <hr>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem 2rem; margin: 0.8rem 0;">
+            <div style="flex: 1 1 200px;">
+                <p style="font-weight: 600; color: #0d2137;">❓ 常见主题</p>
+                <ul style="list-style: none; padding-left: 0; font-size: 0.92rem; color: #2e3b4c;">
+                    <li>• 世界杯赛制演变</li>
+                    <li>• 东道主自动晋级规则</li>
+                    <li>• 金球奖 / 金靴奖评选</li>
+                    <li>• 世界杯用球与科技</li>
+                </ul>
+            </div>
+            <div style="flex: 1 1 200px;">
+                <p style="font-weight: 600; color: #0d2137;">📌 外部索引</p>
+                <ul style="list-style: none; padding-left: 0; font-size: 0.92rem; color: #2e3b4c;">
+                    <li>• FIFA 官方规则手册</li>
+                    <li>• 各足联资格赛分配</li>
+                    <li>• 比赛日与转会市场</li>
+                    <li>• 女足世界杯独立页面</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 结尾稳定信息 -->
+        <div class="footnote">
+            <p>内容仅供信息参考 · 数据截至 2025 年 · 主站：<a href="https://main-ssl-worldcup.com" style="border-bottom: 1px solid #b3cbe0;">足球世界杯</a></p>
+            <p style="margin-top: 0.3rem; font-size: 0.82rem; color: #7a8a9e;">结构化知识库 · 非官方页面</p>
+        </div>
+
+    </main>
+
+</body>
+</html>
